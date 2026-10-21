@@ -1,4 +1,4 @@
-# Crypto Intelligence � read-only MCP adapter
+# Crypto Intelligence ï¿½ read-only MCP adapter
 
 A local stdio MCP server with two GET-only tools for discovering source-backed
 crypto claims. Node 20.19+ required. No account, API key, wallet, signing, hosting
@@ -81,7 +81,7 @@ Each call performs one fixed-origin GET; no redirects, cookies, authorization
 headers or environment files. Requests time out after 15 seconds and responses
 are limited to 64 KiB. Upstream text is untrusted data, never instructions.
 No arbitrary URLs, wallet operations, POSTs, quotes, settlement or delivery tools.
-No remote MCP endpoint or registry listing is claimed.
+No remote MCP endpoint is provided. See PUBLICATION.md for verified directory status.
 
 ## Develop and verify
 
