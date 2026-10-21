@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.tompeezy/crypto-intelligence-mcp",
+  "title": "Crypto Intelligence",
+  "description": "Read-only crypto claim discovery and unsigned readiness; no wallets, quotes or payments.",
+  "repository": {
+    "url": "https://github.com/tompeezy/crypto-intelligence-mcp",
+    "source": "github"
+  },
+  "version": "0.1.0",
+  "packages": [
+    {
+      "registryType": "mcpb",
+      "identifier": "https://github.com/tompeezy/crypto-intelligence-mcp/releases/download/v0.1.0/crypto-intelligence-mcp-0.1.0.mcpb",
+      "fileSha256": "67c6fe26886a1db281ed848944132741d37f121e654fdaecc59d88c6e43050c8",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

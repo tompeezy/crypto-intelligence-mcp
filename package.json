@@ -1,0 +1,38 @@
+{
+  "name": "crypto-intelligence-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20.19"
+  },
+  "scripts": {
+    "start": "node src/stdio.mjs",
+    "demo": "node demo.mjs",
+    "test": "node --test test/adapter.test.mjs test/http.test.mjs test/protocol.test.mjs test/package.test.mjs",
+    "lint": "eslint src test scripts demo.mjs",
+    "typecheck": "tsc -p tsconfig.json",
+    "build": "node --check src/client.mjs && node --check src/server.mjs && node --check src/stdio.mjs && node --check demo.mjs && node --check scripts/bundle.mjs && node --check scripts/installed-demo.mjs",
+    "bundle": "node scripts/bundle.mjs",
+    "demo:installed": "node scripts/installed-demo.mjs",
+    "format:check": "prettier --check src scripts test .github *.mjs *.json *.md"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.3.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@anthropic-ai/mcpb": "2.1.2",
+    "@modelcontextprotocol/client": "2.3.1",
+    "@types/node": "22.20.1",
+    "typescript": "5.9.3",
+    "eslint": "10.7.0",
+    "@eslint/js": "10.0.1",
+    "prettier": "3.6.2"
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tompeezy/crypto-intelligence-mcp.git"
+  }
+}

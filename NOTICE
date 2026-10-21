@@ -1,0 +1,5 @@
+Crypto Intelligence MCP Adapter
+CI-owned adapter code is licensed under the Apache License, Version 2.0 by explicit owner authorization.
+This grant covers only this standalone adapter, not the commercial CI service, evidence, or private repository.
+Third-party components retain their original licenses, copyright and attribution notices.
+See THIRD-PARTY-NOTICES.md and the unmodified licenses included with each bundled package.

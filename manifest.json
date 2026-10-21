@@ -1,0 +1,39 @@
+{
+  "manifest_version": "0.3",
+  "name": "crypto-intelligence-mcp",
+  "display_name": "Crypto Intelligence (read-only)",
+  "version": "0.1.0",
+  "description": "Discover two source-backed crypto products and inspect unsigned readiness. GET-only; no quotes, wallets, payments or delivery.",
+  "author": {
+    "name": "Crypto Intelligence"
+  },
+  "homepage": "https://ci-production-api.onrender.com",
+  "server": {
+    "type": "node",
+    "entry_point": "server/stdio.mjs",
+    "mcp_config": {
+      "command": "node",
+      "args": ["${__dirname}/server/stdio.mjs"]
+    }
+  },
+  "tools": [
+    {
+      "name": "ci_discover",
+      "description": "Read the complete validated public catalog, prices, availability and evidence restrictions."
+    },
+    {
+      "name": "ci_request_claim",
+      "description": "Read unsigned readiness for one product; never quote, sign, pay or deliver."
+    }
+  ],
+  "compatibility": {
+    "runtimes": {
+      "node": ">=20.19"
+    }
+  },
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tompeezy/crypto-intelligence-mcp"
+  }
+}
