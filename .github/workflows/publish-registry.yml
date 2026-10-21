@@ -1,0 +1,49 @@
+name: Publish Official MCP Registry
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  publish:
+    if: github.repository == 'tompeezy/crypto-intelligence-mcp' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify reviewed metadata and released artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          with open('registry/server.json') as f: metadata = json.load(f)
+          assert metadata['name'] == 'io.github.tompeezy/crypto-intelligence-mcp'
+          assert metadata['version'] == '0.1.0'
+          assert len(metadata['packages']) == 1
+          package = metadata['packages'][0]
+          assert package['registryType'] == 'mcpb'
+          assert package['identifier'] == 'https://github.com/tompeezy/crypto-intelligence-mcp/releases/download/v0.1.0/crypto-intelligence-mcp-0.1.0.mcpb'
+          assert package['fileSha256'] == '67c6fe26886a1db281ed848944132741d37f121e654fdaecc59d88c6e43050c8'
+          PY
+          curl --fail --silent --show-error --location --proto '=https' 'https://github.com/tompeezy/crypto-intelligence-mcp/releases/download/v0.1.0/crypto-intelligence-mcp-0.1.0.mcpb' -o "$RUNNER_TEMP/ci-adapter.mcpb"
+          echo "67c6fe26886a1db281ed848944132741d37f121e654fdaecc59d88c6e43050c8  $RUNNER_TEMP/ci-adapter.mcpb" | sha256sum --check
+      - name: Install official pinned publisher
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --location --proto '=https' 'https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz' -o "$RUNNER_TEMP/publisher.tar.gz"
+          echo "a06c9096dcb9727c13555b6be26c7effa707b01f06a4c561ba7a3635443cf2cc  $RUNNER_TEMP/publisher.tar.gz" | sha256sum --check
+          tar -xzf "$RUNNER_TEMP/publisher.tar.gz" -C "$RUNNER_TEMP" mcp-publisher
+          "$RUNNER_TEMP/mcp-publisher" validate registry/server.json
+      - name: Authenticate using short-lived public repository identity
+        run: '"$RUNNER_TEMP/mcp-publisher" login github-oidc'
+      - name: Submit existing MCPB metadata
+        run: '"$RUNNER_TEMP/mcp-publisher" publish registry/server.json'
+      - name: Remove ephemeral registry login
+        if: always()
+        run: 'if [ -x "$RUNNER_TEMP/mcp-publisher" ]; then "$RUNNER_TEMP/mcp-publisher" logout; fi'
