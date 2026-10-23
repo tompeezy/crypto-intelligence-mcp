@@ -1,9 +1,43 @@
-# Crypto Intelligence ï¿½ read-only MCP adapter
+# Crypto Intelligence: read-only MCP adapter
 
 A local stdio MCP server with two GET-only tools for discovering source-backed
 crypto claims. Node 20.19+ required. No account, API key, wallet, signing, hosting
 or payment capability. CI-owned adapter code: Apache-2.0; dependencies keep their
 own terms in THIRD-PARTY-NOTICES.md.
+
+## Start here: what you can use today
+
+Find the adapter in the [Official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.tompeezy%2Fcrypto-intelligence-mcp/versions/0.1.0),
+then install the pinned release below in your local MCP host.
+
+Today you can discover two source-backed product offers and inspect their unsigned
+readiness. **The MCP adapter does not deliver a verified answer. Purchases are disabled.**
+The offered scopes are one ERC-20 specification assertion and one fixed historical
+Strategy BTC-holdings comparison; neither is general crypto research.
+
+It cannot verify arbitrary companies, Ripple partnerships, XRPL institutional
+adoption, CBDC rollout, customer demand, RLUSD settlement or current token safety.
+Do not interpret a partnership, token transfer or old disclosure as current
+production activity. No institutional findings are promised by this interface.
+
+- `ci_discover({})` returns validated catalog metadata: product IDs, scope, prices,
+  availability, restrictions and evidence deadlines. It is not a claim response.
+- `ci_request_claim({"productId":"ci-erc20-zero-transfer-v1"})` accepts **only** a
+  catalog product ID. The other accepted ID is
+  `strategy-historical-btc-treasury-comparison`. There is no free-text `claim`
+  argument or arbitrary URL/network/company input.
+- `purchases_disabled` with `delivered:false` means **no answer was delivered**.
+  It is not an affirmative verification, a contradiction, or an
+  `Insufficient evidence` classification.
+- If a future evidence-verification response says **Insufficient evidence**, that
+  means the available eligible evidence does not establish the exact assertion;
+  it does not prove the assertion false. These MCP tools do not currently return
+  that classifier result. A deadline alone does not prove approval or freshness.
+
+For one voluntary discovery-only test, use [VOLUNTEER-TEST.md](VOLUNTEER-TEST.md).
+Keep your actual question local; share feedback only if you choose to.
+[FEEDBACK.md](FEEDBACK.md) is a minimal optional template. No wallet, payment,
+private key, paid service, account registration or production access is needed.
 
 ## Install the MCPB release
 
